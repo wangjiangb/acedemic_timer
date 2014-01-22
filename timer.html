@@ -6,7 +6,25 @@
   </head>
  
   <body>   
-    <h1>Pirate badge</h1>    
+    <h1>Conference Deadlines</h1>        
+    <div id = "timer" style="display:none">
+      Nearest Confernce:
+      <div id="counter">
+      0 Days 0 Hours 0 Minutes 0 Seconds     
+      </div>
+      <div id="conf_name">
+      CVPR     
+      </div>
+    </div>  
+    <div>           
+    </div>
+    <div id = "other" style="display:none">
+    Other Conferences:
+    <div>
+    <ul id = "deadlines">
+    </ul>
+    </div>
+    </div>
     <script type="application/dart" src="timer.dart"></script>
     <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
     <script src="packages/browser/dart.js"></script>   
