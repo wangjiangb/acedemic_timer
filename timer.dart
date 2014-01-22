@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'dart:convert' show JSON;
 import 'dart:async' show Timer;
+import 'dart:async' show Future;
 
 class Conference {
   String _name;
@@ -19,9 +20,18 @@ class Conference {
     }
   }
 
-  static _parsePirateNamesFromJSON(String jsonString) {
-    Map conf = JSON.decode(jsonString);
-    confs = conf['names'];
+  static Future readyTheConferences() {
+    var path = 'conferences.json';
+    return HttpRequest.getString(path)
+        .then(_parseConferencesFromJSON);
+  }
+  
+  static _parseConferencesFromJSON(String jsonString) {
+    List conf_strs = JSON.decode(jsonString);
+    for (var conf_str in  conf_strs) {
+      confs.add(new Conference(conf_str["name"], conf_str["deadline"]));
+    }
+    confs.sort((x, y) => x.deadline.compareTo(y.deadline));
   }
 
   String get jsonString => '{ "name": "$_name", "deadline": "$_deadline.ToString()" } ';
@@ -68,9 +78,8 @@ void updateConfs(Timer _)
 }
 
 void main() {
-  List<Conference> confs = Conference.confs;
-  confs.add(new Conference("ICML", "2014-01-31 23:59:59"));
-  confs.add(new Conference("ECCV", "2014-03-07 23:59:59"));
-  confs.sort((x, y) => x.deadline.compareTo(y.deadline));
-  Timer timer = new Timer.periodic(new Duration(seconds:1), updateConfs);
+  Conference.readyTheConferences()
+    .then((_) {
+      Timer timer = new Timer.periodic(new Duration(seconds:1), updateConfs);
+  });     
 }
