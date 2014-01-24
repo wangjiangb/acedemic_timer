@@ -2,28 +2,40 @@
 
 <html>
   <head>
-    <title>timer</title>
+    <title>Acdemic Conference Deadline Timer</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+ <link href="theme.css" rel="stylesheet">
   </head>
  
   <body>   
-    <h1>Conference Deadlines</h1>        
+    <div  class="jumbotron">
+    <h1>Conference Deadlines</h1>         
     <div id = "timer" style="display:none">
-      Nearest Confernce:
-      <div id="counter">
-      0 Days 0 Hours 0 Minutes 0 Seconds     
+      <h2>Nearest Confernce:</h2>
+      <h2>      
+      <div id="conf_name">      
+      CVPR
+      </div>                 
       </div>
-      <div id="conf_name">
-      CVPR     
+      <div class ="alert alert-danger" id="counter">           
+      0 Days 0 Hours 0 Minutes 0 Seconds      
       </div>
-    </div>  
+      </h2>      
+    </div>         
     <div>           
     </div>
     <div id = "other" style="display:none">
+    <h1>
     Other Conferences:
-    <div>
+    </h1>   
+    <h2>       
     <ul id = "deadlines">
     </ul>
-    </div>
+    </h2>    
     </div>
     <script type="application/dart" src="timer.dart"></script>
     <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->

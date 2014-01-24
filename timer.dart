@@ -53,6 +53,15 @@ String diffString(Duration diff) {
       " Minutes "  + seconds.toString() + " Seconds";
 }
 
+String styleString(Duration diff) {
+  if (diff < new Duration(hours: 7* Duration.HOURS_PER_DAY)) {
+    return "alert alert-danger";
+  }
+  if (diff < new Duration(hours: 30* Duration.HOURS_PER_DAY)) {
+    return "alert alert-warning";
+  }
+  return "alert alert-info";
+}
 void updateConfs(Timer _)
 {
   List<Conference> confs = Conference.confs;
@@ -60,6 +69,7 @@ void updateConfs(Timer _)
     querySelector('#timer').style.display = 'block';
     Duration diff = confs[0].deadline.difference(new DateTime.now());
     querySelector('#counter').text = diffString(diff);
+    querySelector('#counter').className = styleString(diff);
     querySelector('#conf_name').text = confs[0].name;
   } else {
     return;
@@ -80,6 +90,7 @@ void updateConfs(Timer _)
 void main() {
   Conference.readyTheConferences()
     .then((_) {
+      updateConfs(null);
       Timer timer = new Timer.periodic(new Duration(seconds:1), updateConfs);
   });     
 }
