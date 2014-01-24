@@ -80,8 +80,11 @@ void updateConfs(Timer _)
     confList.children.clear();
     for (int i = 1; i < confs.length; ++i) {
       var newConf = new LIElement();
-      Duration diff = confs[i].deadline.difference(new DateTime.now());
-      newConf.text = confs[i].name + " Deadline is " + diffString(diff) + " away.";
+      var confDiv = new DivElement();
+      Duration diff = confs[i].deadline.difference(new DateTime.now());     
+      confDiv.text = confs[i].name + " Deadline is " + diffString(diff) + " away.";
+      confDiv.className = styleString(diff);
+      newConf.children.add(confDiv);
       confList.children.add(newConf);
     }
   }
