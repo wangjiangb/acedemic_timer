@@ -65,9 +65,11 @@ String styleString(Duration diff) {
 void updateConfs(Timer _)
 {
   List<Conference> confs = Conference.confs;
+  DateTime currentTime = new DateTime.now();
+  confs.retainWhere((x) => x.deadline.compareTo(currentTime) > 0);
   if (confs.length > 0) {
     querySelector('#timer').style.display = 'block';
-    Duration diff = confs[0].deadline.difference(new DateTime.now());
+    Duration diff = confs[0].deadline.difference(currentTime);
     querySelector('#counter').text = diffString(diff);
     querySelector('#counter').className = styleString(diff);
     querySelector('#conf_name').text = confs[0].name;
@@ -81,7 +83,7 @@ void updateConfs(Timer _)
     for (int i = 1; i < confs.length; ++i) {
       var newConf = new LIElement();
       var confDiv = new DivElement();
-      Duration diff = confs[i].deadline.difference(new DateTime.now());     
+      Duration diff = confs[i].deadline.difference(currentTime);     
       confDiv.text = confs[i].name + " Deadline is " + diffString(diff) + " away.";
       confDiv.className = styleString(diff);
       newConf.children.add(confDiv);
